@@ -1,7 +1,7 @@
 [project]
-name = "virustotal"
-version = "0.1.0"
-description = "Add your description here"
+name = "VirusTotalHashScanner"
+version = "1.0.0"
+description = "Terminal based security tool. Scan directories for suspicious files."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
