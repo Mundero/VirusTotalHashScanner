@@ -50,6 +50,8 @@ pip install -r requirements.txt
 ```
 
 
+You can also install via installer in Release section or unpack prepared .exe.
+
 ---
 ## Configuration
 
