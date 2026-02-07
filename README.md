@@ -37,7 +37,7 @@ Hash-based file scanner that checks local files against VirusTotal by SHA-256 an
 Get repo:
 
 ```bash
-git clone https://github.com/<your-username>/VirusTotalHashScanner.git
+git clone https://github.com/Mundero/VirusTotalHashScanner.git
 cd VirusTotalHashScanner
 ```
 
