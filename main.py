@@ -342,7 +342,3 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
-# To ADD
-# Repoert HTML name and scanned location
