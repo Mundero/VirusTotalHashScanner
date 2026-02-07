@@ -1,7 +1,20 @@
-# VirusTotalHashScanner
+<h1 align="center">VirusTotalHashScanner</h1>
 
+<p align="center">
+Terminal based security tool. Scan directories for suspicious files.
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.13%2B-success?style=flat-square">
+  <img src="https://img.shields.io/badge/Platform-Windows-blue?style=flat-square">
+    <img src="https://img.shields.io/badge/Platform-Linux-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/License-GPL-yellow?style=flat-square">
+</p>
+
+---
+## Overwiew
 Hash-based file scanner that checks local files against VirusTotal by SHA-256 and produces HTML and CSV reports. Optional Gemini AI summaries can be attached to suspicious results.
 
+---
 ## What it does
 
 - Walks a directory (or volume), hashes files with SHA-256, and queries VirusTotal for existing verdicts
@@ -10,12 +23,6 @@ Hash-based file scanner that checks local files against VirusTotal by SHA-256 an
 - Can scan inside archives (zip/rar/7z/tar, etc.) when enabled, with safety limits
 - Optionally calls Gemini to summarize "CAUTION" results
 
-## How it works (high level)
-
-1. Recursively enumerate files (and optionally archive contents).
-2. Compute SHA-256 for each file.
-3. Query VirusTotal's v3 API by hash (no file uploads).
-4. Aggregate results and build reports.
 
 ## Requirements
 
@@ -24,16 +31,17 @@ Hash-based file scanner that checks local files against VirusTotal by SHA-256 an
 - (Optional) Google Gemini API key for AI summaries
 - (Optional) 7-Zip CLI on PATH if `INCLUDE_ARCHIVES = true`
 
+---
 ## Installation
 
-From the project root:
+Get repo:
 
 ```bash
 git clone https://github.com/<your-username>/VirusTotalHashScanner.git
 cd VirusTotalHashScanner
 ```
 
-Then:
+Install dependencies:
 
 ```bash
 python -m venv .venv
@@ -41,18 +49,8 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-If you prefer installing from the project metadata instead:
 
-```bash
-pip install .
-```
-
-Editable install:
-
-```bash
-pip install -e .
-```
-
+---
 ## Configuration
 
 On first run, a default `config.ini` is created and the app exits so you can edit it. You can also copy `config_example.ini` to `config.ini`.
@@ -66,6 +64,7 @@ Key options (see `config_example.ini` for all):
 - Concurrency and rate limits for VirusTotal and Gemini
 - `EXPORT_CSV` to enable CSV output
 
+---
 ## Usage
 
 Scan a directory:
@@ -82,7 +81,7 @@ python main.py -v "C:\"
 
 If you run without arguments, the app prompts you to choose a directory or volume.
 
-## Output
+### Output
 
 By default, reports are written to `Results/` (or `RESULT_DIRECTORY` if set):
 
@@ -91,12 +90,27 @@ By default, reports are written to `Results/` (or `RESULT_DIRECTORY` if set):
 - `scan_report_caution_YYYY_MM_DD.html` (only if any caution/suspicious)
 - `scan_report_YYYY_MM_DD.csv` (only if `EXPORT_CSV = true`)
 
-## CSV fields
+### CSV fields
 
 The CSV includes:
 
 `name, path, malicious, suspicious, undetected, severity, label, file_type, sandbox, result, gemini, error, sha256`
 
+---
+## Example output
+
+Result html
+![](Examples/Result_html.jpg)
+
+
+Result with enabled Gemini
+![](Examples/Result_html_ai.jpg)
+
+CSV file
+![](Examples/Result_csv.jpg)
+
+
+---
 ## Limitations
 
 - Hash-only lookups: files are not uploaded to VirusTotal. If a hash is not present in VirusTotal, the result is "UNKNOWN".
@@ -105,15 +119,16 @@ The CSV includes:
 - Volume scanning uses OS drive enumeration; behavior may vary across platforms.
 - Results are as current as VirusTotal data for the hash at scan time.
 
-## Troubleshooting
+### Troubleshooting
 
 - **"VirusTotal API key is invalid"**: verify `VIRUS_TOTAL_API` in `config.ini`.
 - **"7-Zip CLI not found"**: install 7-Zip and ensure `7z` is on PATH, or set `INCLUDE_ARCHIVES = false`.
 - **"Not found in VirusTotal"**: the hash isn't known to VirusTotal yet.
 
+---
 ## Security and privacy
 
-This tool sends only file hashes to VirusTotal (no file content). Gemini summaries send only the scan metadata, not file contents.
+This tool sends only file hashes to VirusTotal (no file content). Gemini summaries  only the scan metadata, not file contents.
 
 ## License
 
